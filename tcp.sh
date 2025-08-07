@@ -2,7 +2,7 @@
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 #=================================================
-#	System Required: CentOS 7/8,Debian/ubuntu,oraclelinux
+#	System Required: CentOS 7/8,Debian/ubuntu,oraclelinux,Alpine 3.20+
 #	Description: BBR+BBRplus+Lotserver
 #	Version: 100.0.4.2
 #	Author: 千影,cx9208,YLX
@@ -16,7 +16,7 @@ export PATH
 # PLAIN='\033[0m'
 
 sh_ver="100.0.4.2"
-github="raw.githubusercontent.com/ylx2016/Linux-NetSpeed/master"
+github="raw.githubusercontent.com/ChasLui/Linux-NetSpeed/master"
 
 imgurl=""
 headurl=""
@@ -1375,6 +1375,8 @@ startlotserver() {
   remove_bbr_lotserver
   if [[ "${OS_type}" == "CentOS" ]]; then
     yum install ethtool -y
+  elif [[ "${OS_type}" == "Alpine" ]]; then
+    apk add ethtool
   else
     apt-get update || apt-get --allow-releaseinfo-change update
     apt-get install ethtool -y
@@ -1550,7 +1552,7 @@ optimizing_ddcc() {
 Update_Shell() {
   local shell_file
   shell_file="$(readlink -f "$0")"
-  local shell_url="https://raw.githubusercontent.com/ylx2016/Linux-NetSpeed/master/tcp.sh"
+  local shell_url="https://raw.githubusercontent.com/ChasLui/Linux-NetSpeed/master/tcp.sh"
 
   # 下载最新版本的脚本
   wget -O "/tmp/tcp.sh" "$shell_url" &>/dev/null
@@ -1576,8 +1578,8 @@ Update_Shell() {
 #切换到不卸载内核版本
 gototcpx() {
   clear
-  #wget -O tcpx.sh "https://github.com/ylx2016/Linux-NetSpeed/raw/master/tcpx.sh" && chmod +x tcpx.sh && ./tcpx.sh
-  bash <(wget -qO- https://github.com/ylx2016/Linux-NetSpeed/raw/master/tcpx.sh)
+  #wget -O tcpx.sh "https://github.com/ChasLui/Linux-NetSpeed/raw/master/tcpx.sh" && chmod +x tcpx.sh && ./tcpx.sh
+  bash <(wget -qO- https://github.com/ChasLui/Linux-NetSpeed/raw/master/tcpx.sh)
 }
 
 #切换到秋水逸冰BBR安装脚本
@@ -1767,6 +1769,85 @@ start_menu() {
     ;;
   esac
 }
+
+#############Alpine Linux支持函数#############
+
+# Alpine Linux BBR安装函数
+installbbr_alpine() {
+  echo -e "${Info} Alpine Linux BBR 安装开始..."
+  
+  # 更新包索引
+  apk update
+  
+  # 安装最新的 linux-lts 内核(支持BBR)
+  apk add linux-lts
+  
+  # 配置 BBR
+  configure_bbr_alpine
+  
+  echo -e "${Tip} Alpine Linux BBR 安装完成，请重启系统生效"
+  read -p "需要重启系统后才能生效，是否现在重启? [Y/n]: " yn
+  [ -z "${yn}" ] && yn="y"
+  if [[ $yn == [Yy] ]]; then
+    echo -e "${Info} 系统重启中..."
+    reboot
+  fi
+}
+
+# Alpine Linux BBRplus安装函数  
+installbbrplus_alpine() {
+  echo -e "${Info} Alpine Linux BBRplus 安装开始..."
+  echo -e "${Tip} 注意: Alpine Linux 将使用标准内核配置BBR，不支持BBRplus内核"
+  
+  # 更新包索引
+  apk update
+  
+  # 安装最新的 linux-lts 内核
+  apk add linux-lts
+  
+  # 配置 BBR（BBRplus在Alpine上退化为BBR）
+  configure_bbr_alpine
+  
+  echo -e "${Tip} Alpine Linux BBR 配置完成（注意：实际为BBR，不是BBRplus）"
+  read -p "需要重启系统后才能生效，是否现在重启? [Y/n]: " yn
+  [ -z "${yn}" ] && yn="y"
+  if [[ $yn == [Yy] ]]; then
+    echo -e "${Info} 系统重启中..."
+    reboot
+  fi
+}
+
+# Alpine Linux BBR配置函数
+configure_bbr_alpine() {
+  echo -e "${Info} 配置 Alpine Linux BBR..."
+  
+  # 确保 sysctl 目录存在
+  mkdir -p /etc/sysctl.d
+  
+  # 确保 modules-load.d 目录存在
+  mkdir -p /etc/modules-load.d
+  
+  # 移除旧的配置
+  sed -i '/net.core.default_qdisc/d' /etc/sysctl.d/99-sysctl.conf 2>/dev/null || true
+  sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.d/99-sysctl.conf 2>/dev/null || true
+  
+  # 创建或更新 BBR 配置
+  if [ ! -f "/etc/sysctl.d/99-sysctl.conf" ]; then
+    touch /etc/sysctl.d/99-sysctl.conf
+  fi
+  
+  # 添加 BBR 配置
+  echo "# BBR 配置" >> /etc/sysctl.d/99-sysctl.conf
+  echo "net.core.default_qdisc=fq" >> /etc/sysctl.d/99-sysctl.conf  
+  echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.d/99-sysctl.conf
+  
+  # 加载tcp_bbr模块
+  modprobe tcp_bbr 2>/dev/null || echo "注意: tcp_bbr 模块加载失败，可能内核已内置支持"
+  echo "tcp_bbr" >> /etc/modules-load.d/bbr.conf
+  
+  echo -e "${Info} BBR 配置完成"
+}
+
 #############内核管理组件#############
 
 #删除多余内核
@@ -1921,6 +2002,8 @@ check_sys() {
     release="ubuntu"
   elif grep -qi -E "centos|red hat|redhat" /etc/issue || grep -qi -E "centos|red hat|redhat" /proc/version; then
     release="centos"
+  elif [[ -f /etc/alpine-release ]]; then
+    release="alpine"
   fi
 
   if [[ -f /etc/debian_version ]]; then
@@ -1929,6 +2012,9 @@ check_sys() {
   elif [[ -f /etc/redhat-release || -f /etc/centos-release || -f /etc/fedora-release ]]; then
     OS_type="CentOS"
     echo "检测为CentOS通用系统，判断有误请反馈"
+  elif [[ -f /etc/alpine-release ]]; then
+    OS_type="Alpine"
+    echo "检测为Alpine Linux系统，判断有误请反馈"
   else
     echo "Unknown"
   fi
@@ -2106,6 +2192,25 @@ check_sys() {
       apt-get install lsb-release -y
     fi
 
+  elif [[ "${OS_type}" == "Alpine" ]]; then
+    # 检查是否安装了 ca-certificates 包，如果未安装则安装
+    if ! apk list --installed ca-certificates >/dev/null 2>&1; then
+      echo '正在安装 ca-certificates 包...'
+      apk update && apk add ca-certificates
+      update-ca-certificates
+    fi
+    echo 'CA证书检查OK'
+
+    # 检查并安装 curl、wget 和 dmidecode 包
+    for pkg in curl wget dmidecode; do
+      if ! type $pkg >/dev/null 2>&1; then
+        echo "未安装 $pkg，正在安装..."
+        apk add $pkg
+      else
+        echo "$pkg 已安装。"
+      fi
+    done
+
   else
     echo "不支持的操作系统发行版：${release}"
     exit 1
@@ -2116,6 +2221,8 @@ check_sys() {
 check_version() {
   if [[ -s /etc/redhat-release ]]; then
     version=$(grep -oE "[0-9.]+" /etc/redhat-release | cut -d . -f 1)
+  elif [[ -f /etc/alpine-release ]]; then
+    version=$(cat /etc/alpine-release | cut -d . -f 1-2)
   else
     version=$(grep -oE "[0-9.]+" /etc/issue | cut -d . -f 1)
   fi
@@ -2135,6 +2242,12 @@ check_sys_bbr() {
   elif [[ "${OS_type}" == "Debian" ]]; then
     apt-get --fix-broken install -y && apt-get autoremove -y
     installbbr
+  elif [[ "${OS_type}" == "Alpine" ]]; then
+    if [[ $(echo "${version}" | cut -d . -f 1) -ge 3 && $(echo "${version}" | cut -d . -f 2) -ge 20 ]]; then
+      installbbr_alpine
+    else
+      echo -e "${Error} BBR内核不支持当前系统 ${release} ${version} ${bit} ! 需要 Alpine 3.20+" && exit 1
+    fi
   else
     echo -e "${Error} BBR内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
   fi
@@ -2151,6 +2264,12 @@ check_sys_bbrplus() {
   elif [[ "${OS_type}" == "Debian" ]]; then
     apt-get --fix-broken install -y && apt-get autoremove -y
     installbbrplus
+  elif [[ "${OS_type}" == "Alpine" ]]; then
+    if [[ $(echo "${version}" | cut -d . -f 1) -ge 3 && $(echo "${version}" | cut -d . -f 2) -ge 20 ]]; then
+      installbbrplus_alpine
+    else
+      echo -e "${Error} BBRplus内核不支持当前系统 ${release} ${version} ${bit} ! 需要 Alpine 3.20+" && exit 1
+    fi
   else
     echo -e "${Error} BBRplus内核不支持当前系统 ${release} ${version} ${bit} !" && exit 1
   fi

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## License: GPL
-## It can reinstall Debian, Ubuntu, CentOS system with network.
+## It can reinstall Debian, Ubuntu, CentOS, Alpine system with network.
 ## Default root password: MoeClub.org
 ## Blog: https://moeclub.org
 ## Written By MoeClub.org
@@ -53,6 +53,12 @@ while [[ $# -ge 1 ]]; do
     -c|--centos)
       shift
       Relese='CentOS'
+      tmpDIST="$1"
+      shift
+      ;;
+    -a|--alpine)
+      shift
+      Relese='Alpine'
       tmpDIST="$1"
       shift
       ;;
@@ -135,7 +141,7 @@ while [[ $# -ge 1 ]]; do
       ;;
     *)
       if [[ "$1" != 'error' ]]; then echo -ne "\nInvaild option: '$1'\n\n"; fi
-      echo -ne " Usage:\n\tbash $(basename $0)\t-d/--debian [\033[33m\033[04mdists-name\033[0m]\n\t\t\t\t-u/--ubuntu [\033[04mdists-name\033[0m]\n\t\t\t\t-c/--centos [\033[33m\033[04mdists-verison\033[0m]\n\t\t\t\t-v/--ver [32/\033[33m\033[04mi386\033[0m|64/amd64]\n\t\t\t\t--ip-addr/--ip-gate/--ip-mask\n\t\t\t\t-apt/-yum/--mirror\n\t\t\t\t-dd/--image\n\t\t\t\t-a/--auto\n\t\t\t\t-m/--manual\n"
+      echo -ne " Usage:\n\tbash $(basename $0)\t-d/--debian [\033[33m\033[04mdists-name\033[0m]\n\t\t\t\t-u/--ubuntu [\033[04mdists-name\033[0m]\n\t\t\t\t-c/--centos [\033[33m\033[04mdists-verison\033[0m]\n\t\t\t\t-a/--alpine [\033[33m\033[04mversion\033[0m]\n\t\t\t\t-v/--ver [32/\033[33m\033[04mi386\033[0m|64/amd64]\n\t\t\t\t--ip-addr/--ip-gate/--ip-mask\n\t\t\t\t-apt/-yum/--mirror\n\t\t\t\t-dd/--image\n\t\t\t\t-a/--auto\n\t\t\t\t-m/--manual\n"
       exit 1;
       ;;
     esac

@@ -1,3 +1,23 @@
+## 支持的系统
+
+本项目支持以下 Linux 发行版的网络速度优化：
+
+- **CentOS** 7/8
+- **Debian** 9/10/11+
+- **Ubuntu** 16.04/18.04/20.04+
+- **Alpine Linux** 3.20+ ✨ 新增支持
+- **Oracle Linux** 7/8
+
+### Alpine Linux 特别说明
+
+Alpine Linux 是轻量级容器友好的发行版，支持标准 BBR 优化：
+- 使用 `linux-lts` 内核包
+- 支持 BBR 拥塞控制算法
+- BBRplus 和其他高级内核在 Alpine 上会退化为标准 BBR
+- 推荐在容器和轻量级部署中使用
+
+---
+
 赞助
 <br>
 支付宝
@@ -14,15 +34,18 @@ centos：yum install ca-certificates wget -y && update-ca-trust force-enable
 ```
 debian/ubuntu：apt-get install ca-certificates wget -y && update-ca-certificates
 ```
+```
+alpine：apk update && apk add ca-certificates wget && update-ca-certificates
+```
 不卸载内核版本
 
 ```
-wget -O tcpx.sh "https://github.com/ylx2016/Linux-NetSpeed/raw/master/tcpx.sh" && chmod +x tcpx.sh && ./tcpx.sh
+wget -O tcpx.sh "https://github.com/ChasLui/Linux-NetSpeed/raw/master/tcpx.sh" && chmod +x tcpx.sh && ./tcpx.sh
 ```
 
 卸载内核版本
 ```
-wget -O tcp.sh "https://github.com/ylx2016/Linux-NetSpeed/raw/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
+wget -O tcp.sh "https://github.com/ChasLui/Linux-NetSpeed/raw/master/tcp.sh" && chmod +x tcp.sh && ./tcp.sh
 ```
 关联action自动编译内核
 

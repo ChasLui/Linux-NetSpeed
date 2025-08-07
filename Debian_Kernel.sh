@@ -1,6 +1,28 @@
 #!/bin/bash
 #草系最新moeclub.org的代码
+#支持 Debian/Ubuntu/Alpine 内核安装脚本
 
+# 检测操作系统类型
+if [ -f /etc/alpine-release ]; then
+  # Alpine Linux 系统
+  echo "检测到 Alpine Linux 系统"
+  alpine_ver="$(cat /etc/alpine-release)"
+  alpine_major="$(echo $alpine_ver | cut -d. -f1)"
+  alpine_minor="$(echo $alpine_ver | cut -d. -f2)"
+  
+  if [ "$alpine_major" -ge 3 ] && [ "$alpine_minor" -ge 20 ]; then
+    echo "Alpine Linux $alpine_ver 支持，开始安装 linux-lts 内核..."
+    apk update
+    apk add linux-lts linux-firmware
+    echo "Alpine Linux 内核安装完成，请重启系统"
+    exit 0
+  else
+    echo "Alpine Linux 版本过低，需要 3.20 以上版本"
+    exit 1
+  fi
+fi
+
+# 原有的 Debian/Ubuntu 检测逻辑
 deb_issue="$(cat /etc/issue)"
 deb_relese="$(echo $deb_issue |grep -io 'Ubuntu\|Debian' |sed -r 's/(.*)/\L\1/')"
 os_ver="$(dpkg --print-architecture)"
