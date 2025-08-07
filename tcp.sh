@@ -1650,22 +1650,20 @@ start_menu() {
   clear
   echo && echo -e " TCP加速 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}]${Font_color_suffix} from blog.ylx.me 母鸡慎用
  ${Green_font_prefix}0.${Font_color_suffix} 升级脚本
- ${Green_font_prefix}9.${Font_color_suffix} 切换到不卸载内核版本	${Green_font_prefix}10.${Font_color_suffix} 切换到一键DD系统脚本
- ${Green_font_prefix}60.${Font_color_suffix} 切换到检查当前IP质量/媒体解锁/邮箱通信脚本
  ${Green_font_prefix}1.${Font_color_suffix} 安装 BBR原版内核
- ${Green_font_prefix}2.${Font_color_suffix} 安装 BBRplus版内核		${Green_font_prefix}5.${Font_color_suffix} 安装 BBRplus新版内核
- ${Green_font_prefix}3.${Font_color_suffix} 安装 Lotserver(锐速)内核
- ${Green_font_prefix}8.${Font_color_suffix} 安装 官方cloud内核 (支持debian系列)
- ${Green_font_prefix}11.${Font_color_suffix} 使用BBR+FQ加速		${Green_font_prefix}12.${Font_color_suffix} 使用BBR+FQ_PIE加速
- ${Green_font_prefix}13.${Font_color_suffix} 使用BBR+CAKE加速		${Green_font_prefix}14.${Font_color_suffix} 使用BBR2+FQ加速
- ${Green_font_prefix}15.${Font_color_suffix} 使用BBR2+FQ_PIE加速	${Green_font_prefix}16.${Font_color_suffix} 使用BBR2+CAKE加速
- ${Green_font_prefix}17.${Font_color_suffix} 开启ECN	 		${Green_font_prefix}18.${Font_color_suffix} 关闭ECN
- ${Green_font_prefix}19.${Font_color_suffix} 使用BBRplus+FQ版加速 
- ${Green_font_prefix}20.${Font_color_suffix} 使用Lotserver(锐速)加速 
- ${Green_font_prefix}21.${Font_color_suffix} 系统配置优化旧		${Green_font_prefix}22.${Font_color_suffix} 系统配置优化新
- ${Green_font_prefix}27.${Font_color_suffix} 系统配置优化激进方案
- ${Green_font_prefix}23.${Font_color_suffix} 禁用IPv6	 		${Green_font_prefix}24.${Font_color_suffix} 开启IPv6
- ${Green_font_prefix}25.${Font_color_suffix} 卸载全部加速	 	${Green_font_prefix}99.${Font_color_suffix} 退出脚本 
+ ${Green_font_prefix}2.${Font_color_suffix} 安装 BBRplus版内核		${Green_font_prefix}3.${Font_color_suffix} 安装 Lotserver(锐速)内核
+ ${Green_font_prefix}4.${Font_color_suffix} 安装 BBRplus新版内核		${Green_font_prefix}5.${Font_color_suffix} 安装 官方cloud内核 (支持debian系列)
+ ${Green_font_prefix}6.${Font_color_suffix} 使用BBR+FQ加速		${Green_font_prefix}7.${Font_color_suffix} 使用BBR+FQ_PIE加速
+ ${Green_font_prefix}8.${Font_color_suffix} 使用BBR+CAKE加速		${Green_font_prefix}9.${Font_color_suffix} 使用BBR2+FQ加速
+ ${Green_font_prefix}10.${Font_color_suffix} 使用BBR2+FQ_PIE加速	${Green_font_prefix}11.${Font_color_suffix} 使用BBR2+CAKE加速
+ ${Green_font_prefix}12.${Font_color_suffix} 开启ECN	 		${Green_font_prefix}13.${Font_color_suffix} 关闭ECN
+ ${Green_font_prefix}14.${Font_color_suffix} 使用BBRplus+FQ版加速	${Green_font_prefix}15.${Font_color_suffix} 使用Lotserver(锐速)加速 
+ ${Green_font_prefix}16.${Font_color_suffix} 系统配置优化旧		${Green_font_prefix}17.${Font_color_suffix} 系统配置优化新
+ ${Green_font_prefix}18.${Font_color_suffix} 系统配置优化激进方案	${Green_font_prefix}19.${Font_color_suffix} 系统配置优化DDCC
+ ${Green_font_prefix}20.${Font_color_suffix} 禁用IPv6			${Green_font_prefix}21.${Font_color_suffix} 开启IPv6
+ ${Green_font_prefix}22.${Font_color_suffix} 卸载全部加速		${Green_font_prefix}23.${Font_color_suffix} 切换到不卸载内核版本
+ ${Green_font_prefix}24.${Font_color_suffix} 切换到一键DD系统脚本	${Green_font_prefix}25.${Font_color_suffix} 切换到检查当前IP质量/媒体解锁/邮箱通信脚本
+ ${Green_font_prefix}99.${Font_color_suffix} 退出脚本 
 ————————————————————————————————————————————————————————————————" &&
     check_status
   get_system_info
@@ -1692,71 +1690,71 @@ start_menu() {
   3)
     check_sys_Lotsever
     ;;
-  5)
+  4)
     check_sys_bbrplusnew
     ;;
-  8)
+  5)
     check_sys_cloud
     ;;
-  9)
-    gototcpx
-    ;;
-  10)
-    gotodd
-    ;;
-  60)
-    gotoipcheck
-    ;;
-  11)
+  6)
     startbbrfq
     ;;
-  12)
+  7)
     startbbrfqpie
     ;;
-  13)
+  8)
     startbbrcake
     ;;
-  14)
+  9)
     startbbr2fq
     ;;
-  15)
+  10)
     startbbr2fqpie
     ;;
-  16)
+  11)
     startbbr2cake
     ;;
-  17)
+  12)
     startecn
     ;;
-  18)
+  13)
     closeecn
     ;;
-  19)
+  14)
     startbbrplus
     ;;
-  20)
+  15)
     startlotserver
     ;;
-  21)
+  16)
     optimizing_system
     ;;
-  22)
+  17)
     optimizing_system_johnrosen1
     ;;
-  23)
-    closeipv6
+  18)
+    optimizing_system_radicalizate
     ;;
-  24)
-    openipv6
-    ;;
-  25)
-    remove_all
-    ;;
-  26)
+  19)
     optimizing_ddcc
     ;;
-  27)
-    optimizing_system_radicalizate
+  20)
+    closeipv6
+    ;;
+  21)
+    openipv6
+    ;;
+  22)
+    remove_all
+    ;;
+  23)
+    gototcpx
+    ;;
+  24)
+    gotodd
+    ;;
+  25)
+    gotoipcheck
     ;;
   99)
     exit 1

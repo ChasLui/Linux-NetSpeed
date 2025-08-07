@@ -1643,24 +1643,24 @@ start_menu() {
   clear
   echo && echo -e " TCP加速 一键安装管理脚本 ${Red_font_prefix}[v${sh_ver}] 不卸内核${Font_color_suffix} from blog.ylx.me 母鸡慎用
  ${Green_font_prefix}0.${Font_color_suffix} 升级脚本
- ${Green_font_prefix}9.${Font_color_suffix} 切换到卸载内核版本		${Green_font_prefix}10.${Font_color_suffix} 切换到一键DD系统脚本
- ${Green_font_prefix}60.${Font_color_suffix} 切换到检查当前IP质量/媒体解锁/邮箱通信脚本
- ${Green_font_prefix}1.${Font_color_suffix} 安装 BBR原版内核		${Green_font_prefix}7.${Font_color_suffix} 安装 Zen官方版内核
- ${Green_font_prefix}2.${Font_color_suffix} 安装 BBRplus版内核		${Green_font_prefix}5.${Font_color_suffix} 安装 BBRplus新版内核
- ${Green_font_prefix}3.${Font_color_suffix} 安装 Lotserver(锐速)内核	${Green_font_prefix}36.${Font_color_suffix} 安装 XANMOD官方内核(EDGE)
- ${Green_font_prefix}30.${Font_color_suffix} 安装 官方稳定内核		${Green_font_prefix}31.${Font_color_suffix} 安装 官方最新内核 backports/elrepo
- ${Green_font_prefix}8.${Font_color_suffix} 安装 官方cloud内核 (支持debian系列)
- ${Green_font_prefix}32.${Font_color_suffix} 安装 XANMOD官方内核(main)	${Green_font_prefix}33.${Font_color_suffix} 安装 XANMOD官方内核(LTS)
- ${Green_font_prefix}11.${Font_color_suffix} 使用BBR+FQ加速		${Green_font_prefix}12.${Font_color_suffix} 使用BBR+FQ_PIE加速 
- ${Green_font_prefix}13.${Font_color_suffix} 使用BBR+CAKE加速		${Green_font_prefix}14.${Font_color_suffix} 使用BBR2+FQ加速
- ${Green_font_prefix}15.${Font_color_suffix} 使用BBR2+FQ_PIE加速	${Green_font_prefix}16.${Font_color_suffix} 使用BBR2+CAKE加速
- ${Green_font_prefix}17.${Font_color_suffix} 开启ECN	 		${Green_font_prefix}18.${Font_color_suffix} 关闭ECN
- ${Green_font_prefix}19.${Font_color_suffix} 使用BBRplus+FQ版加速       ${Green_font_prefix}20.${Font_color_suffix} 使用Lotserver(锐速)加速
- ${Green_font_prefix}21.${Font_color_suffix} 系统配置优化旧		${Green_font_prefix}22.${Font_color_suffix} 系统配置优化新
- ${Green_font_prefix}27.${Font_color_suffix} 系统配置优化激进方案	${Green_font_prefix}28.${Font_color_suffix} 编译安装brutal模块
- ${Green_font_prefix}23.${Font_color_suffix} 禁用IPv6	 		${Green_font_prefix}24.${Font_color_suffix} 开启IPv6
- ${Green_font_prefix}51.${Font_color_suffix} 查看排序内核               ${Green_font_prefix}52.${Font_color_suffix} 删除保留指定内核
- ${Green_font_prefix}25.${Font_color_suffix} 卸载全部加速	 	${Green_font_prefix}99.${Font_color_suffix} 退出脚本 
+ ${Green_font_prefix}1.${Font_color_suffix} 安装 BBR原版内核		${Green_font_prefix}2.${Font_color_suffix} 安装 BBRplus版内核
+ ${Green_font_prefix}3.${Font_color_suffix} 安装 Lotserver(锐速)内核	${Green_font_prefix}4.${Font_color_suffix} 安装 BBRplus新版内核
+ ${Green_font_prefix}5.${Font_color_suffix} 安装 Zen官方版内核		${Green_font_prefix}6.${Font_color_suffix} 安装 官方cloud内核 (支持debian系列)
+ ${Green_font_prefix}7.${Font_color_suffix} 安装 官方稳定内核		${Green_font_prefix}8.${Font_color_suffix} 安装 官方最新内核 backports/elrepo
+ ${Green_font_prefix}9.${Font_color_suffix} 安装 XANMOD官方内核(main)	${Green_font_prefix}10.${Font_color_suffix} 安装 XANMOD官方内核(LTS)
+ ${Green_font_prefix}11.${Font_color_suffix} 安装 XANMOD官方内核(EDGE)	${Green_font_prefix}12.${Font_color_suffix} 使用BBR+FQ加速
+ ${Green_font_prefix}13.${Font_color_suffix} 使用BBR+FQ_PIE加速		${Green_font_prefix}14.${Font_color_suffix} 使用BBR+CAKE加速
+ ${Green_font_prefix}15.${Font_color_suffix} 使用BBR2+FQ加速		${Green_font_prefix}16.${Font_color_suffix} 使用BBR2+FQ_PIE加速
+ ${Green_font_prefix}17.${Font_color_suffix} 使用BBR2+CAKE加速		${Green_font_prefix}18.${Font_color_suffix} 开启ECN
+ ${Green_font_prefix}19.${Font_color_suffix} 关闭ECN			${Green_font_prefix}20.${Font_color_suffix} 使用BBRplus+FQ版加速
+ ${Green_font_prefix}21.${Font_color_suffix} 使用Lotserver(锐速)加速	${Green_font_prefix}22.${Font_color_suffix} 系统配置优化旧
+ ${Green_font_prefix}23.${Font_color_suffix} 系统配置优化新		${Green_font_prefix}24.${Font_color_suffix} 系统配置优化激进方案
+ ${Green_font_prefix}25.${Font_color_suffix} 系统配置优化DDCC		${Green_font_prefix}26.${Font_color_suffix} 编译安装brutal模块
+ ${Green_font_prefix}27.${Font_color_suffix} 禁用IPv6			${Green_font_prefix}28.${Font_color_suffix} 开启IPv6
+ ${Green_font_prefix}29.${Font_color_suffix} 卸载全部加速		${Green_font_prefix}30.${Font_color_suffix} 查看排序内核
+ ${Green_font_prefix}31.${Font_color_suffix} 删除保留指定内核	${Green_font_prefix}32.${Font_color_suffix} 切换到卸载内核版本
+ ${Green_font_prefix}33.${Font_color_suffix} 切换到一键DD系统脚本	${Green_font_prefix}34.${Font_color_suffix} 切换到检查当前IP质量/媒体解锁/邮箱通信脚本
+ ${Green_font_prefix}99.${Font_color_suffix} 退出脚本 
 ————————————————————————————————————————————————————————————————" &&
     check_status
   get_system_info
@@ -1687,98 +1687,98 @@ start_menu() {
   3)
     check_sys_Lotsever
     ;;
-  5)
+  4)
     check_sys_bbrplusnew
     ;;
-  7)
+  5)
     check_sys_official_zen
     ;;
-  8)
+  6)
     check_sys_cloud
     ;;
-  30)
+  7)
     check_sys_official
     ;;
-  31)
+  8)
     check_sys_official_bbr
     ;;
-  32)
+  9)
     check_sys_official_xanmod_main
     ;;
-  33)
+  10)
     check_sys_official_xanmod_lts
     ;;
-  36)
+  11)
     check_sys_official_xanmod_edge
     ;;
-  9)
-    gototcp
-    ;;
-  10)
-    gotodd
-    ;;
-  60)
-    gotoipcheck
-    ;;
-  11)
+  12)
     startbbrfq
     ;;
-  12)
+  13)
     startbbrfqpie
     ;;
-  13)
+  14)
     startbbrcake
     ;;
-  14)
+  15)
     startbbr2fq
     ;;
-  15)
+  16)
     startbbr2fqpie
     ;;
-  16)
+  17)
     startbbr2cake
     ;;
-  17)
+  18)
     startecn
     ;;
-  18)
+  19)
     closeecn
     ;;
-  19)
+  20)
     startbbrplus
     ;;
-  20)
+  21)
     startlotserver
     ;;
-  21)
+  22)
     optimizing_system_old
     ;;
-  22)
+  23)
     optimizing_system_johnrosen1
     ;;
-  23)
-    closeipv6
-    ;;
   24)
-    openipv6
-    ;;
-  25)
-    remove_all
-    ;;
-  26)
-    optimizing_ddcc
-    ;;
-  27)
     optimizing_system_radicalizate
     ;;
-  28)
+  25)
+    optimizing_ddcc
+    ;;
+  26)
     startbrutal
     ;;
-  51)
+  27)
+    closeipv6
+    ;;
+  28)
+    openipv6
+    ;;
+  29)
+    remove_all
+    ;;
+  30)
     BBR_grub
     ;;
-  52)
+  31)
     detele_kernel_custom
+    ;;
+  32)
+    gototcp
+    ;;
+  33)
+    gotodd
+    ;;
+  34)
+    gotoipcheck
     ;;
   99)
     exit 1
